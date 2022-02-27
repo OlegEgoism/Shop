@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<form action="#" method='POST'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit"> Отправить</button>
+</form>
+
+<h5>{% for i in a %}
+    {{ i.number }} <br>
+    {% endfor %}
+</h5>
+
+
+</body>
+</html>

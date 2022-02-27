@@ -36,3 +36,10 @@ class OrderItem(models.Model):
 
     def get_cost(self):
         return self.price * self.quantity
+
+class AllFrom(models.Model):
+    number = models.IntegerField(verbose_name='Число')
+
+    # def __str__(self):
+    #     return str(self.number)
+

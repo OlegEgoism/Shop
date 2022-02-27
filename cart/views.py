@@ -1,4 +1,6 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from django.template import Context
 from django.views.decorators.http import require_POST
 from shop.models import Product
 from .cart import Cart
@@ -27,4 +29,13 @@ def cart_remove(request, product_id):
 
 def cart_detail(request):
     cart = Cart(request)
+    print(Context().flatten())
     return render(request, 'cart/detail.html', {'cart': cart})
+
+
+def name(request):
+    print(request.__dict__)
+
+    return render(request, 'cart/name.html')
+
+

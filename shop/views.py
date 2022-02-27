@@ -4,7 +4,8 @@ from cart.forms import CartAddProductForm
 
 
 def product_list(request, category_slug=None):
-    # print(request.session.__dict__)
+    # print(request.session._get_session())
+    # print(request.__dict__)
     category = None
     categories = Category.objects.all()
     products = Product.objects.filter(available=True)

@@ -38,11 +38,24 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'django_celery_beat',
+    'django_celery_results',
+
     'shop',
     'cart',
     'orders',
 
+    # 'django_rabbitmq',
+
 ]
+
+# RABBITMQ = { 'default': { 'HOST': 'server_ip', 'PORT': 5672, 'VIRTUAL_HOST': '/', 'USER': 'user', 'PASSWORD': 'password', 'QUEUE': 'queue' } }
+
+# CELERY_RESULT_BACKEND = "django-db"
+
+CELERY_BROKER_URL = "redis://127.0.0.1:6379/0"
+# CELERY_RESULT_BACKEND = "redis://127.0.0.1:6379/0"
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -53,8 +66,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-ROOT_URLCONF = 'myshop.urls'
 
 TEMPLATES = [
     {
@@ -68,10 +79,13 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'cart.context_processors.cart',
+                'orders.context_processors.name',
             ],
         },
     },
 ]
+ROOT_URLCONF = 'myshop.urls'
+
 
 WSGI_APPLICATION = 'myshop.wsgi.application'
 
@@ -111,7 +125,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ru'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Minsk'
 
 USE_I18N = True
 
