@@ -5,6 +5,8 @@ from .views import manage_items, manage_item
 urlpatterns = [
     path('', manage_items, name='items'),
     path('<slug:key>', manage_item, name='single_item'),
+    # path('get_state/', get_state, name='get_state')
+
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

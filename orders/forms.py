@@ -14,3 +14,8 @@ class AFrom(forms.ModelForm):
         fields = '__all__'
     # number = forms.IntegerField(label='Число')
 
+
+class HomeForm(forms.Form):
+    number = forms.IntegerField()
+
+

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Celery home</h1>
+<form action="#" method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">OK</button>
+</form>
+<p id="task_id">
+    {{ task_id }}
+</p>
+<div id="root">
+
+</div>
+<script>
+let root = document.querySelector('#root')
+let state = true
+
+do {
+    fetch('')
+    }
+    while (state):
+
+</script>
+</body>
+</html>

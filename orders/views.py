@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import OrderItem
-from .forms import OrderCreateForm, AllFrom, AFrom
+from .forms import OrderCreateForm, AllFrom, AFrom, HomeForm
 from cart.cart import Cart
 from .tasks import add
 
@@ -43,3 +43,23 @@ def getform(request):
             }
             return render(request, 'orders/order/form.html', context=context)
     return render(request, 'orders/order/form.html', {'form': form})
+
+
+def celeryhome(request):
+    form = HomeForm()
+    if request.method == 'POST':
+        form = HomeForm(request.POST)
+        if form.is_valid():
+            num = form.cleaned_data
+            # print(num.get('number'))
+            result = add.delay(num.get('number'))
+            print(result.id)
+            # print(num.get('number'))
+
+            context = {'form': form,
+               'task_id': result.id,
+               }
+            return render(request, 'orders/order/home.html', context=context)
+    context = {'form': form
+               }
+    return render(request, 'orders/order/home.html', context=context)
