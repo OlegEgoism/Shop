@@ -53,7 +53,7 @@ def celeryhome(request):
             num = form.cleaned_data
             # print(num.get('number'))
             result = add.delay(num.get('number'))
-            print(result.id)
+            print(len(result.id))
             # print(num.get('number'))
 
             context = {'form': form,

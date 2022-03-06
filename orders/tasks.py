@@ -10,5 +10,5 @@ app = Celery('tasks', backend='redis://localhost:6379', broker='redis://127.0.0.
 
 @app.task
 def add(x):
-    time.sleep(60)
+    time.sleep(20)
     return x*x

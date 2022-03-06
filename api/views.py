@@ -101,13 +101,21 @@ def manage_item(request, *args, **kwargs):
                 return Response(response, status=404)
 
 
-# @api_view(['GET'])
-# def get_state(request):
-#     if request.method =='GET':
+@api_view(['GET', 'POST'])
+def get_state(request, id):
+    status = redis_instance.get('celery-task-meta-'+id)
+    state = json.loads(status)
+    print(status, 'state')
+    print(len(id), 'get_state')
+    return Response(state['status'])
+
+    # status = redis_instance.get('celery-task-meta-' + id)
+    # state = json.loads(status)
+    # print(state['status'])
 
 
 
-    #
+
     # form = HomeForm()
     # if request.method == 'POST':
     #     form = HomeForm(request.POST)

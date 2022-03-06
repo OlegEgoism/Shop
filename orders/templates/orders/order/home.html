@@ -6,26 +6,34 @@
 </head>
 <body>
 <h1>Celery home</h1>
+<input type="button" value="Проверить статус задачи" id="status">
+
 <form action="#" method="POST">
     {% csrf_token %}
     {{form.as_p}}
     <button type="submit">OK</button>
 </form>
-<p id="task_id">
-    {{ task_id }}
-</p>
-<div id="root">
 
+<p id="task_id" hidden>{{task_id}}</p>
+
+<div id="root">
 </div>
+
 <script>
 let root = document.querySelector('#root')
 let state = true
-
-do {
-    fetch('')
-    }
-    while (state):
-
+let task_id = document.querySelector('#task_id')
+console.log(task_id.innerHTML)
+let status = document.querySelector('#status')
+status.addEventListener('click', fn)
+function fn() {
+    fetch(`http://127.0.0.1:8000/api/get_state/${task_id.innerHTML}`)
+    .then((response)=>response.json())
+    .then(status=>console.log(status))
+}
 </script>
+
+
+
 </body>
 </html>
