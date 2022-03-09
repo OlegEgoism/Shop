@@ -8,7 +8,8 @@ app = Celery('tasks', backend='redis://localhost:6379', broker='redis://127.0.0.
 
 
 
-@app.task
+# @shared_task(track_started=True)
+@app.task(track_started=True)
 def add(x):
-    time.sleep(20)
+    time.sleep(5)
     return x*x

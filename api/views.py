@@ -1,4 +1,6 @@
 import json
+
+from celery import shared_task
 from django.conf import settings
 import redis
 from django.shortcuts import render
@@ -101,7 +103,7 @@ def manage_item(request, *args, **kwargs):
                 return Response(response, status=404)
 
 
-@api_view(['GET', 'POST'])
+# @api_view(['GET', 'POST'])
 # def get_state(request, id):
 #     status = redis_instance.get('celery-task-meta-'+id)
 #     state = json.loads(status)
@@ -111,21 +113,25 @@ def manage_item(request, *args, **kwargs):
 #     print(len(id), 'get_state')
 #     return Response(state['status'])
 
-
+@api_view(['GET', 'POST'])
 def get_state(request, id):
-    if request.method == 'GET':
-        meta = 'celery-task-meta-'+id
-        print(redis_instance.keys('*'), 'r  edis_instance task_id')
-        status = redis_instance.get(meta)
-        keys = redis_instance.keys('*')
-        keys = [value.decode('utf-8') for value in keys]
-        print(keys)
-        print(id, 'eto id taski')
-        print(meta in keys)
-        response = {
-            # 'status': instance['status']
-        }
-        return Response(response, status=200)
+    status = redis_instance.get('celery-task-meta-' +id)
+    status = json.loads(status)
+    print(status)
+    # if request.method == 'GET':
+    #     meta = 'celery-task-meta-'+id
+    #     # print(redis_instance.keys('*'), 'r  edis_instance task_id')
+    #     state = redis_instance.get(meta)
+    #     print(state)
+    #     keys = redis_instance.keys('*')
+    #     keys = [value.decode('utf-8') for value in keys]
+    #     # print(keys)
+    #     # print(id, 'eto id taski')
+    #     # print(meta in keys)
+    #     # response = {
+    #         # 'status': instance['status']
+    #     # }
+    return Response(status['status'])
 
 
 
