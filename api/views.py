@@ -102,16 +102,30 @@ def manage_item(request, *args, **kwargs):
 
 
 @api_view(['GET', 'POST'])
-def get_state(request, id):
-    status = redis_instance.get('celery-task-meta-'+id)
-    state = json.loads(status)
-    print(status, 'state')
-    print(len(id), 'get_state')
-    return Response(state['status'])
+# def get_state(request, id):
+#     status = redis_instance.get('celery-task-meta-'+id)
+#     state = json.loads(status)
+#     key = redis_instance.keys('*')
+#     print(key)
+#     print(status, 'state')
+#     print(len(id), 'get_state')
+#     return Response(state['status'])
 
-    # status = redis_instance.get('celery-task-meta-' + id)
-    # state = json.loads(status)
-    # print(state['status'])
+
+def get_state(request, id):
+    if request.method == 'GET':
+        meta = 'celery-task-meta-'+id
+        print(redis_instance.keys('*'), 'r  edis_instance task_id')
+        status = redis_instance.get(meta)
+        keys = redis_instance.keys('*')
+        keys = [value.decode('utf-8') for value in keys]
+        print(keys)
+        print(id, 'eto id taski')
+        print(meta in keys)
+        response = {
+            # 'status': instance['status']
+        }
+        return Response(response, status=200)
 
 
 
