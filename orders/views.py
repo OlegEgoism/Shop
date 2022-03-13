@@ -1,8 +1,11 @@
+from symbol import test
+
 from django.shortcuts import render
 from .models import OrderItem
 from .forms import OrderCreateForm, AllFrom, AFrom, HomeForm
 from cart.cart import Cart
-from .tasks import add
+# from .tasks import add
+
 
 def order_create(request):
     cart = Cart(request)
@@ -52,7 +55,9 @@ def celeryhome(request):
         if form.is_valid():
             num = form.cleaned_data
             # print(num.get('number'))
-            result = add.delay(num.get('number'))
+
+            # result = add.delay(num.get('number'))
+            result = test.delay(num.get('number'))
             print(len(result.id))
             # print(num.get('number'))
 
