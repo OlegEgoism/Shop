@@ -17,8 +17,8 @@
 from celery import Celery
 from celery.schedules import crontab
 
-# app = Celery()
-app = Celery('tasks', backend='redis://localhost:6379', broker='redis://127.0.0.1:6379/0')
+app = Celery()
+# app = Celery('tasks', backend='redis://localhost:6379', broker='redis://127.0.0.1:6379/0')
 
 @app.on_after_configure.connect
 def setup_periodic_tasks(sender, **kwargs):
@@ -38,17 +38,9 @@ def setup_periodic_tasks(sender, **kwargs):
 def test(arg):
     print(arg)
 
-# @app.task
-# def add(x, y):
-#     z = x + y
-#     print(z)
+@app.task
+def add(x, y):
+    z = x + y
+    print(z)
 
 
-app.conf.beat_schedule = {
-    'add-every-30-seconds': {
-        'task': 'tasks.test',
-        'schedule': 10.0,
-        'args': {'id': 2}
-    },
-}
-app.conf.timezone = 'UTC'

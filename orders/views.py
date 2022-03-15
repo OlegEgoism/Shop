@@ -5,6 +5,7 @@ from .models import OrderItem
 from .forms import OrderCreateForm, AllFrom, AFrom, HomeForm
 from cart.cart import Cart
 # from .tasks import add
+from .new_celery import add
 
 
 def order_create(request):
@@ -62,9 +63,18 @@ def celeryhome(request):
             # print(num.get('number'))
 
             context = {'form': form,
-               'task_id': result.id,
-               }
+                       'task_id': result.id,
+                       }
             return render(request, 'orders/order/home.html', context=context)
     context = {'form': form
                }
     return render(request, 'orders/order/home.html', context=context)
+
+
+def getcelery(request):
+    if request.method == "POST":
+        task = add.delay(4)
+        context = {'Work': 'задача'}
+        return render(request, 'orders/order/getcelery.html', context=context)
+
+    return render(request, 'orders/order/getcelery.html')
